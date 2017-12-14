@@ -1,0 +1,76 @@
+{
+  "name": "react-virtualized-transfer",
+  "version": "1.4.0",
+  "description": "react-virtualized-transfer",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "scripts": {
+    "lint": "eslint src/*.js src/test/*.js",
+    "test": "jest",
+    "coverage": "jest --coverage ",
+    "prepublish": "npm run lint && npm run build",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook -c .storybook -o storybook-static",
+    "build:css": "node ./scripts/buildless.js",
+    "clean": "rimraf lib && rimraf es",
+    "less": "node node_modules/.bin/lessc --npm-import='prefix=~' src/transfer.less > css/transfer.css",
+    "deploy": "gh-pages -d storybook-static",
+    "build": "npm run clean && npm run build:css && npm run build:commonjs && npm run build:es",
+    "build:commonjs": "cross-env NODE_ENV=production BABEL_ENV=commonjs babel src -d lib --ignore test && copyfiles -f src/transfer.less lib",
+    "build:es": "cross-env NODE_ENV=production BABEL_ENV=es babel src -d es --ignore test && copyfiles -f src/transfer.less es"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wangtao0101/react-virtualized-transfer.git"
+  },
+  "keywords": [
+    "react",
+    "virtualized",
+    "transfer"
+  ],
+  "author": "wangtao0101",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wangtao0101/react-virtualized-transfer/issues"
+  },
+  "homepage": "https://github.com/wangtao0101/react-virtualized-transfer#readme",
+  "dependencies": {
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "invariant": "^2.2.2",
+    "warning": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^19.2.2",
+    "@types/react": "^15.0.23",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.0",
+    "babel-eslint": "^7.2.1",
+    "babel-jest": "^19.0.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-env": "1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "copyfiles": "^1.2.0",
+    "cross-env": "^5.1.1",
+    "css-loader": "^0.26.4",
+    "enzyme": "3.1.0",
+    "enzyme-adapter-react-16": "1.1.0",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
+    "jest": "21.2.1",
+    "jest-enzyme": "4.0.1",
+    "less": "^2.7.1",
+    "react": "16.2.0",
+    "react-dom": "16.2.0",
+    "rimraf": "^2.6.2"
+  },
+  "peerDependencies": {
+    "react": "^15.3.0 || ^16.0.0-alpha",
+    "react-dom": "^15.3.0 || ^16.0.0-alpha"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>/scripts/setupTests.js"
+  }
+}

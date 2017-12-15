@@ -1,4 +1,4 @@
-import invariant from 'invariant';
+import * as invariant from 'invariant';
 import fetchTranslation from './fetchTranslation';
 
 export interface Translation {
@@ -18,7 +18,7 @@ export interface Options {
     /**
      * fetch interval(second) if use remote type, default 60s
      */
-    fetchInterval: number;
+    fetchInterval?: number;
 }
 
 export class I18nInstance {
@@ -35,7 +35,7 @@ export class I18nInstance {
         if (options.type === 'remote') {
             invariant(typeof options.remoteUrl === 'string', 'remote type should set remoteUrl');
         } else {
-            invariant(options.translation !== null, 'memory type should set translation');
+            invariant(options.translation != null, 'memory type should set translation');
             this.setTranslation(options.translation);
         }
         this.setLocale(options.locale);
@@ -55,7 +55,33 @@ export class I18nInstance {
         return this.locale;
     }
 
-    public t(namespace: string = this.defaultNS, key: string, replacements) {
+    public t(key: string, replacements?: Object);
+    public t(ns: string, key: string, replacements?: Object);
+    public t(...args) {
+        let key;
+        let namespace;
+        let replacements;
+        if (args.length === 1) {
+            key = args[0];
+            namespace = this.defaultNS;
+        } else if (args.length === 2) {
+            if (typeof args[1] === 'string') {
+                namespace = args[0];
+                key = args[1];
+            } else {
+                namespace = this.defaultNS;
+                key = args[0];
+                replacements = args[1];
+            }
+        } else {
+            namespace = args[0];
+            key = args[1];
+            replacements = args[2];
+        }
+        return this.translate(namespace, key, replacements);
+    }
+
+    private translate(namespace: string, key: string, replacements) {
         let trans = '';
         try {
             trans = this.translation[this.locale][namespace][key];

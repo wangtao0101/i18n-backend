@@ -18,7 +18,7 @@
       "sourceMap": true,
       "baseUrl": ".",
       "paths": {
-        "resa-class-model": ["src/index.ts"]
+        "i18n-backend": ["src/index.ts"]
       }
     },
     "include": [

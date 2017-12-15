@@ -1,0 +1,70 @@
+import { I18n } from 'i18n-backend';
+
+const translation = {
+    en: {
+        ns: {
+            hello: 'hello',
+            ['hello name']: 'hello, %{name}',
+        },
+    },
+    zh: {
+        ns: {
+            hello: '你好',
+            ['hello name']: '你好, %{name}',
+        },
+    },
+};
+
+describe('I18n init', () => {
+    test('remote type should set remoteUrl', () => {
+        expect(() => {
+            I18n.init({
+                type: 'remote',
+                locale: 'en',
+                defaultNS: 'common',
+            });
+        }).toThrow(/remote type should set remoteUrl/);
+    });
+
+    test('memory type should set translation', () => {
+        expect(() => {
+            I18n.init({
+                type: 'memory',
+                locale: 'en',
+                defaultNS: 'common',
+            });
+        }).toThrow(/memory type should set translation/);
+    });
+});
+
+describe('I18n memory type', () => {
+    beforeEach(() => {
+        I18n.init({
+            type: 'memory',
+            locale: 'en',
+            defaultNS: 'ns',
+            translation: translation,
+        });
+    });
+
+    test('t translate with ns correct', () => {
+        expect(I18n.t('ns', 'hello')).toEqual('hello');
+    });
+
+    test('t translate with default ns correct', () => {
+        expect(I18n.t('hello')).toEqual('hello');
+    });
+
+    test('t translate with default ns and replacement correct', () => {
+        expect(I18n.t('hello name', { name: 'wt' })).toEqual('hello, wt');
+    });
+
+    test('t translate with replacement correct', () => {
+        expect(I18n.t('ns', 'hello name', { name: 'wt' })).toEqual('hello, wt');
+    });
+
+    test('t translate change locale correct', () => {
+        I18n.setLocale('zh');
+        expect(I18n.t('hello')).toEqual('你好');
+    });
+});

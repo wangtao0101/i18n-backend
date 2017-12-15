@@ -67,4 +67,12 @@ describe('I18n memory type', () => {
         I18n.setLocale('zh');
         expect(I18n.t('hello')).toEqual('你好');
     });
+
+    test('t translate missing namespace correct', () => {
+        expect(I18n.t('zh-cn', 'hello')).toEqual('@@hello');
+    });
+
+    test('t translate null key correct', () => {
+        expect(I18n.t('hel')).toEqual('@@hel');
+    });
 });

@@ -15,6 +15,7 @@ export interface Options {
     translation?: Translation;
     locale: string;
     defaultNS: string;
+    missingPrefix?: string;
     /**
      * fetch interval(second) if use remote type, default 60s
      */
@@ -26,10 +27,12 @@ export class I18nInstance {
     private defaultNS: string;
     private translation: Translation;
     private fetchInterval;
+    private missingPrefix: string;
 
     public init(options: Options) {
         const {
             fetchInterval = 60,
+            missingPrefix = '@@',
         } = options;
 
         if (options.type === 'remote') {
@@ -40,6 +43,7 @@ export class I18nInstance {
         }
         this.setLocale(options.locale);
         this.defaultNS = options.defaultNS;
+        this.missingPrefix = missingPrefix;
     }
 
     public setTranslation(translation) {
@@ -92,7 +96,7 @@ export class I18nInstance {
         }
         if (trans == null || trans === '') {
             // TODO: do simple translate using online service
-            return key;
+            return `${this.missingPrefix}${key}`;
         }
         if (replacements) {
             return this.replace(trans, replacements);

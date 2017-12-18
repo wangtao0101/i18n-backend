@@ -1,4 +1,6 @@
 import { I18n } from 'i18n-backend';
+import axios from 'axios';
+import * as MockAdapter from 'axios-mock-adapter';
 
 const translation = {
     en: {
@@ -74,5 +76,47 @@ describe('I18n memory type', () => {
 
     test('t translate null key correct', () => {
         expect(I18n.t('hel')).toEqual('@@hel');
+    });
+});
+
+describe('I18n remote type', () => {
+    beforeAll(() => {
+        const mockAdapter = new MockAdapter(axios);
+        mockAdapter.onGet('http://192.168.1.1/data').reply(200, {
+            en: {
+                ns: {
+                    he: 'he',
+                },
+            },
+        });
+    });
+
+    beforeEach(() => {
+        return I18n.init({
+            type: 'remote',
+            locale: 'en',
+            defaultNS: 'ns',
+            remoteUrl: 'http://192.168.1.1/data',
+        });
+    });
+
+    test('t translate with ns correct', () => {
+        expect(I18n.t('ns', 'he')).toEqual('he');
+    });
+});
+
+describe('I18n remote type, fetch error', () => {
+    beforeAll(() => {
+        const mockAdapter = new MockAdapter(axios);
+        mockAdapter.onGet('http://192.168.1.1/data').reply(400);
+    });
+
+    test('fetch error', async () => {
+        await expect(I18n.init({
+                type: 'remote',
+                locale: 'en',
+                defaultNS: 'ns',
+                remoteUrl: 'http://192.168.1.1/data',
+        })).rejects.toHaveProperty('message', 'fail loading http://192.168.1.1/data');
     });
 });

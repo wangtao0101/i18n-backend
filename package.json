@@ -28,6 +28,7 @@
   "devDependencies": {
     "@types/jest": "^21.1.5",
     "axios": "^0.17.1",
+    "axios-mock-adapter": "^1.10.0",
     "coveralls": "^3.0.0",
     "jest": "^21.2.1",
     "nyc": "^11.3.0",

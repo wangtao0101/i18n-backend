@@ -31,19 +31,22 @@ export class I18nInstance {
 
     public init(options: Options) {
         const {
-            fetchInterval = 60,
+            fetchInterval = 60000,
             missingPrefix = '@@',
         } = options;
 
-        if (options.type === 'remote') {
-            invariant(typeof options.remoteUrl === 'string', 'remote type should set remoteUrl');
-        } else {
-            invariant(options.translation != null, 'memory type should set translation');
-            this.setTranslation(options.translation);
-        }
         this.setLocale(options.locale);
         this.defaultNS = options.defaultNS;
         this.missingPrefix = missingPrefix;
+
+        if (options.type === 'remote') {
+            invariant(typeof options.remoteUrl === 'string', 'remote type should set remoteUrl');
+            return this.fecthTranslationByInterval(options.remoteUrl, fetchInterval);
+        } else {
+            invariant(options.translation != null, 'memory type should set translation');
+            this.setTranslation(options.translation);
+            return Promise.resolve();
+        }
     }
 
     public setTranslation(translation) {
@@ -106,10 +109,15 @@ export class I18nInstance {
 
     private fecthTranslationByInterval(url, interval) {
         this.fetchInterval = setInterval(() => {
-            fetchTranslation(url, (data) => {
-                this.setTranslation(data);
-            });
+            this.fetchTrans(url);
         }, interval);
+        return this.fetchTrans(url);
+    }
+
+    private fetchTrans(url) {
+        return fetchTranslation(url).then((data) => {
+            this.setTranslation(data);
+        });
     }
 
     private replace(trans: string, replacements) {

@@ -4,6 +4,7 @@
   "description": "i18n backend for i18n server.",
   "main": "lib/src/index.js",
   "typings": "types/index.d.ts",
+  "bin": "lib/src/cli.js",
   "scripts": {
     "build": "npm run clean && tsc -p . --sourceMap false",
     "build:debug": "npm run clean && tsc -p .",

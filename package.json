@@ -1,6 +1,6 @@
 {
   "name": "i18n-backend",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "i18n backend for i18n server.",
   "main": "lib/src/index.js",
   "bin": "lib/src/i18n-cli.js",
@@ -29,7 +29,6 @@
   "devDependencies": {
     "@types/jest": "^21.1.5",
     "@types/node": "^8.5.7",
-    "axios": "^0.17.1",
     "axios-mock-adapter": "^1.10.0",
     "coveralls": "^3.0.0",
     "jest": "^21.2.1",
@@ -55,6 +54,7 @@
     }
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "commander": "^2.12.2",
     "invariant": "^2.2.2",
     "json-format": "^1.0.1"

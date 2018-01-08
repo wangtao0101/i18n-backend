@@ -1,4 +1,4 @@
-import { I18n } from 'i18n-backend';
+import I18n from 'i18n-backend';
 import axios from 'axios';
 import * as MockAdapter from 'axios-mock-adapter';
 
@@ -117,6 +117,6 @@ describe('I18n remote type, fetch error', () => {
                 locale: 'en',
                 defaultNS: 'ns',
                 remoteUrl: 'http://192.168.1.1/data',
-        })).rejects.toHaveProperty('message', 'fail loading http://192.168.1.1/data');
+        })).rejects.toHaveProperty('message', 'fail loading url: http://192.168.1.1/data');
     });
 });

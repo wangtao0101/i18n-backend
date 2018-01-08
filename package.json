@@ -1,14 +1,15 @@
 {
   "name": "i18n-backend",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "i18n backend for i18n server.",
   "main": "lib/src/index.js",
   "typings": "types/index.d.ts",
-  "bin": "lib/src/cli.js",
+  "bin": "lib/src/i18n-cli.js",
   "scripts": {
     "build": "npm run clean && tsc -p . --sourceMap false",
     "build:debug": "npm run clean && tsc -p .",
     "test": "npm run build && jest",
+    "cli": "npm run build && node lib/src/i18n-cli.js --url http://localhost:5000/data.txt",
     "tsc": "tsc",
     "clean": "rimraf lib",
     "prepublish": "npm run build",
@@ -28,6 +29,7 @@
   "homepage": "https://github.com/wangtao0101/i18n-backend#readme",
   "devDependencies": {
     "@types/jest": "^21.1.5",
+    "@types/node": "^8.5.7",
     "axios": "^0.17.1",
     "axios-mock-adapter": "^1.10.0",
     "coveralls": "^3.0.0",
@@ -54,6 +56,8 @@
     }
   },
   "dependencies": {
-    "invariant": "^2.2.2"
+    "commander": "^2.12.2",
+    "invariant": "^2.2.2",
+    "json-format": "^1.0.1"
   }
 }

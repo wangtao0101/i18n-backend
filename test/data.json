@@ -1,0 +1,32 @@
+{
+    "data": {
+        "asa": {
+            "crystal": {
+                "comm_dialog_btn_cancel": "cancle",
+                "comm_dialog_btn_confirm": "确定",
+                "comm_dialog_btn_save": "保存"
+            }
+        },
+        "en": {
+            "crystal": {
+                "comm_dialog_btn_cancel": "cancle",
+                "comm_dialog_btn_confirm": "确定",
+                "comm_dialog_btn_save": "保存"
+            }
+        },
+        "en-AS": {
+            "crystal": {
+                "comm_dialog_btn_cancel": "cancle",
+                "comm_dialog_btn_confirm": "确定",
+                "comm_dialog_btn_save": "保存"
+            }
+        },
+        "zh": {
+            "crystal": {
+                "comm_dialog_btn_cancel": "cancle",
+                "comm_dialog_btn_confirm": "确定",
+                "comm_dialog_btn_save": "保存"
+            }
+        }
+    }
+}

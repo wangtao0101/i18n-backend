@@ -5,7 +5,7 @@ function fetchTranslation(url) {
         .then(response => {
             return response.data;
         }).catch((error) => {
-            throw new Error(`fail loading ${url}`);
+            throw new Error(`fail loading url: ${url}`);
         });
 }
 

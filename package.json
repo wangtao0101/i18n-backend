@@ -11,7 +11,7 @@
     "cli": "npm run build && node lib/src/i18n-cli.js --url http://localhost:5000/data.txt",
     "tsc": "tsc",
     "clean": "rimraf lib",
-    "prepublish": "npm run build",
+    "prepublish": "npm run test",
     "coverage": "jest --coverage",
     "report": "nyc report --temp-directory=coverage --reporter=text-lcov | coveralls",
     "coveralls": "npm run coverage && npm run report"

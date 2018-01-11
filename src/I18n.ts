@@ -16,10 +16,6 @@ export interface Options {
     locale: string;
     defaultNS: string;
     missingPrefix?: string;
-    /**
-     * fetch interval(second) if use remote type, default 60s
-     */
-    fetchInterval?: number;
 }
 
 export class I18nInstance {
@@ -31,7 +27,6 @@ export class I18nInstance {
 
     public init(options: Options) {
         const {
-            fetchInterval = 60000,
             missingPrefix = '@@',
         } = options;
 
@@ -41,7 +36,7 @@ export class I18nInstance {
 
         if (options.type === 'remote') {
             invariant(typeof options.remoteUrl === 'string', 'remote type should set remoteUrl');
-            return this.fecthTranslationByInterval(options.remoteUrl, fetchInterval);
+            return this.fetchTrans(options.remoteUrl);
         } else {
             invariant(options.translation != null, 'memory type should set translation');
             this.setTranslation(options.translation);
@@ -105,13 +100,6 @@ export class I18nInstance {
             return this.replace(trans, replacements);
         }
         return trans;
-    }
-
-    private fecthTranslationByInterval(url, interval) {
-        this.fetchInterval = setInterval(() => {
-            this.fetchTrans(url);
-        }, interval);
-        return this.fetchTrans(url);
     }
 
     private fetchTrans(url) {

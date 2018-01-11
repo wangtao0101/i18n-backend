@@ -4,7 +4,6 @@ function fetchTranslation(url, host?, port?) {
     const config: AxiosRequestConfig = {
         url,
         method: 'get',
-        withCredentials: true,
     };
     if (host) {
         config.proxy = {

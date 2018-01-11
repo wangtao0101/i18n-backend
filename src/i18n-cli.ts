@@ -18,10 +18,12 @@ const USAGE = [
 ].join('\n');
 
 program
-  .version('0.0.0')
-  .option('-u, --url [value]', 'example: http://api/json_project/test')
-  .option('-d, --dest [value]', 'default: \'./src/locale\'')
-  .parse(process.argv);
+    .version('0.0.0')
+    .option('-u, --url [value]', 'example: http://api/json_project/test')
+    .option('-d, --dest [value]', 'default: \'./src/locale\'')
+    .option('-h, --host [value]', 'proxy host')
+    .option('-p, --port [value]', 'proxy port')
+    .parse(process.argv);
 
 if (!program.url) {
     program.help();
@@ -30,7 +32,7 @@ if (!program.url) {
 const url = program.url;
 const dest = program.dest || './src/locale';
 
-fetchTranslation(url).then((json) => {
+fetchTranslation(url, program.host, program.port).then((json) => {
     if (!fs.existsSync(path.join(process.cwd(), dest))) {
         fs.mkdirSync(path.join(process.cwd(), dest));
     }

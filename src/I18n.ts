@@ -104,7 +104,7 @@ export class I18nInstance {
 
     private fetchTrans(url) {
         return fetchTranslation(url).then((data) => {
-            this.setTranslation(data);
+            this.setTranslation(data.data);
         });
     }
 

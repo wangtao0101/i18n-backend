@@ -83,9 +83,11 @@ describe('I18n remote type', () => {
     beforeAll(() => {
         const mockAdapter = new MockAdapter(axios);
         mockAdapter.onGet('http://192.168.1.1/data').reply(200, {
-            en: {
-                ns: {
-                    he: 'he',
+            data: {
+                en: {
+                    ns: {
+                        he: 'he',
+                    },
                 },
             },
         });

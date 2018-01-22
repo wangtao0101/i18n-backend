@@ -1,9 +1,10 @@
 {
   "name": "i18n-backend",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "i18n backend for i18n server.",
   "main": "lib/src/index.js",
   "bin": "lib/src/i18n-cli.js",
+  "typings": "lib/src/index.d.ts",
   "scripts": {
     "build": "npm run clean && tsc -p . --sourceMap false",
     "build:debug": "npm run clean && tsc -p .",

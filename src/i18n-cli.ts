@@ -6,6 +6,9 @@ const jsonFormat = require('json-format');
 const program = require('commander');
 import fetchTranslation from './fetchTranslation';
 
+// disable SSL check
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 function kebab2camel(str) {
     return str.replace(/(\-[A-Za-z])/g, function (m) {
         return m.toUpperCase().replace('-', '');

@@ -26,6 +26,7 @@ program
     .option('-d, --dest [value]', 'default: \'./src/locale\'')
     .option('-h, --host [value]', 'proxy host')
     .option('-p, --port [value]', 'proxy port')
+    .option('-e, --extension [value]', 'default: js')
     .parse(process.argv);
 
 if (!program.url) {
@@ -34,6 +35,7 @@ if (!program.url) {
 
 const url = program.url;
 const dest = program.dest || './src/locale';
+const ext = program.extension || 'js';
 
 fetchTranslation(url, program.host, program.port).then((json) => {
     if (!fs.existsSync(path.join(process.cwd(), dest))) {
@@ -46,9 +48,9 @@ fetchTranslation(url, program.host, program.port).then((json) => {
         indexData += `const ${kebab2camel(key)} = require('./${key}.json');\n`;
         exportDefault += `    '${key}': ${kebab2camel(key)},\n`;
     });
-    exportDefault += '}';
+    exportDefault += '};';
 
-    fs.writeFileSync(path.join(process.cwd(), dest, `index.js`), indexData + exportDefault);
+    fs.writeFileSync(path.join(process.cwd(), dest, `index.${ext}`), indexData + exportDefault);
 }).catch((error) => {
     console.error(error);
     process.exit(1);

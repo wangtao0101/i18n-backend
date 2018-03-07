@@ -1,6 +1,6 @@
 {
   "name": "i18n-backend",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "i18n backend for i18n server.",
   "main": "lib/src/index.js",
   "bin": "lib/src/i18n-cli.js",

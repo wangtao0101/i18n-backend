@@ -37,6 +37,11 @@ const url = program.url;
 const dest = program.dest || './src/locale';
 const ext = program.extension || 'js';
 
+const config = {
+    type: 'space',
+    size: 2,
+};
+
 fetchTranslation(url, program.host, program.port).then((json) => {
     if (!fs.existsSync(path.join(process.cwd(), dest))) {
         fs.mkdirSync(path.join(process.cwd(), dest));
@@ -44,9 +49,9 @@ fetchTranslation(url, program.host, program.port).then((json) => {
     let indexData = '';
     let exportDefault = 'module.exports = {\n';
     Object.keys(json.data).map((key) => {
-        fs.writeFileSync(path.join(process.cwd(), dest, `${key}.json`), jsonFormat(json.data[key]));
+        fs.writeFileSync(path.join(process.cwd(), dest, `${key}.json`), jsonFormat(json.data[key], config));
         indexData += `const ${kebab2camel(key)} = require('./${key}.json');\n`;
-        exportDefault += `    '${key}': ${kebab2camel(key)},\n`;
+        exportDefault += `  '${key}': ${kebab2camel(key)},\n`;
     });
     exportDefault += '};';
 

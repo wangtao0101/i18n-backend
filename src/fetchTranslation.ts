@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, AxiosInstance } from 'axios';
 
 const instance = axios.create({});
 
@@ -23,3 +23,6 @@ function fetchTranslation(url, host?, port?) {
 }
 
 export default fetchTranslation;
+export {
+    instance,
+};

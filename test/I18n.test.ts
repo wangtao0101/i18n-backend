@@ -1,6 +1,7 @@
 import I18n from 'i18n-backend';
 import axios from 'axios';
 import * as MockAdapter from 'axios-mock-adapter';
+import { instance } from '../src/fetchTranslation';
 
 const translation = {
     en: {
@@ -81,7 +82,7 @@ describe('I18n memory type', () => {
 
 describe('I18n remote type', () => {
     beforeAll(() => {
-        const mockAdapter = new MockAdapter(axios);
+        const mockAdapter = new MockAdapter(instance);
         mockAdapter.onGet('http://192.168.1.1/data').reply(200, {
             data: {
                 en: {
@@ -109,7 +110,7 @@ describe('I18n remote type', () => {
 
 describe('I18n remote type, fetch error', () => {
     beforeAll(() => {
-        const mockAdapter = new MockAdapter(axios);
+        const mockAdapter = new MockAdapter(instance);
         mockAdapter.onGet('http://192.168.1.1/data').reply(400);
     });
 

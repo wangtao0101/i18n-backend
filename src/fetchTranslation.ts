@@ -1,5 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
+const instance = axios.create({});
+
 function fetchTranslation(url, host?, port?) {
     const config: AxiosRequestConfig = {
         url,
@@ -12,7 +14,7 @@ function fetchTranslation(url, host?, port?) {
         };
     }
 
-    return axios.request(config)
+    return instance.request(config)
         .then(response => {
             return response.data;
         }).catch((error) => {

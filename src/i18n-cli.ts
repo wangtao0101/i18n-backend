@@ -53,7 +53,7 @@ fetchTranslation(url, program.host, program.port).then((json) => {
         indexData += `const ${kebab2camel(key)} = require('./${key}.json');\n`;
         exportDefault += `  ${key}: ${kebab2camel(key)},\n`;
     });
-    exportDefault += '};';
+    exportDefault += '};\n';
 
     fs.writeFileSync(path.join(process.cwd(), dest, `index.${ext}`), indexData + exportDefault);
 }).catch((error) => {

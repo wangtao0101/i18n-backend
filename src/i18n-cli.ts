@@ -51,7 +51,7 @@ fetchTranslation(url, program.host, program.port).then((json) => {
     Object.keys(json.data).map((key) => {
         fs.writeFileSync(path.join(process.cwd(), dest, `${key}.json`), jsonFormat(json.data[key], config));
         indexData += `const ${kebab2camel(key)} = require('./${key}.json');\n`;
-        exportDefault += `  '${key}': ${kebab2camel(key)},\n`;
+        exportDefault += `  ${key}: ${kebab2camel(key)},\n`;
     });
     exportDefault += '};';
 
